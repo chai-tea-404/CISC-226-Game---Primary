@@ -10,6 +10,6 @@ public class Object_Spinning : MonoBehaviour
     // Rotate the object every frame
     void Update()
     {
-        transform.Rotate(Vector3.forward * rotationSpeed);
+        transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
     }
 }

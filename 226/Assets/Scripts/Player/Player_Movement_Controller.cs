@@ -85,12 +85,27 @@ public class Player_Movement_Controller : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    // Reset position to last checkpoint position
+    void Awake(){
+        Game_Master gm = GameObject.Find("GameMaster").GetComponent<Game_Master>();
+        transform.position = gm.respawnLocation;
+    }
+
     // Update is called once per frame
     void Update()
     {
         // ESC key exits the game into level select
         if (Input.GetKey(KeyCode.Escape)){
+            // Destroy the game master before loading the space scene
+            Destroy(GameObject.Find("GameMaster"));
             SceneManager.LoadScene("Space");
+        }
+
+        // Press R to reset the level
+        if (Input.GetKey(KeyCode.R)){
+            // Unpause game, reload scene
+            Time.timeScale = 1;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

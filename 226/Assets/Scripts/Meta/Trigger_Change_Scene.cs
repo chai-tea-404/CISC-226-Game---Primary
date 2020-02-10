@@ -12,6 +12,8 @@ public class Trigger_Change_Scene : MonoBehaviour
     // Requires the triggering object to have a trigger hitbox
     void OnTriggerEnter2D(Collider2D collision){
         if (collision.CompareTag("Player")){
+            // Destroy the GameMaster before leaving!
+            Destroy(GameObject.Find("GameMaster"));
             SceneManager.LoadScene(sceneName);
         }
     }

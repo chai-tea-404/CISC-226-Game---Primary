@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Player_Health_and_Damage_Controller : MonoBehaviour
@@ -10,16 +9,20 @@ public class Player_Health_and_Damage_Controller : MonoBehaviour
     public static int maxHealthPoints = 30;
     public static int currentHealthPoints;
     public float invulnerabilityPeriod;
-    public Vector2 respawnLocation = new Vector2(1f,2f);
-
-    public static bool isAlive = true;
+    public static bool isAlive;
 
     // Keeping track of damage for animation purposes
     float timeAtLastDamage = 0f;
     public static bool tookDamageRecently = false;
 
     void Start(){
-        currentHealthPoints = maxHealthPoints/2;
+        isAlive = true;
+    }
+
+    // Reset health points to last checkpoint
+    void Awake(){
+        Game_Master gm = GameObject.Find("GameMaster").GetComponent<Game_Master>();
+        currentHealthPoints = gm.respawnHealthPoints;
     }
 
     /* Function to handle player death, should occur when health points hit 0
@@ -66,22 +69,10 @@ public class Player_Health_and_Damage_Controller : MonoBehaviour
     // Check for damage every update
     void Update()
     {
-        // press q to die
-        if (Input.GetKey(KeyCode.Q)){
-            takeDamage(10);
-        }
 
         // If the time since the player last took damage is high enough, reset tookDamageRecently
         if (Time.time - timeAtLastDamage > invulnerabilityPeriod){
             tookDamageRecently = false;
-        }
-
-        // Press R to restart the level
-        if (Input.GetKey(KeyCode.R)){
-            // Unpause game, reset current scene
-            Time.timeScale = 1;
-            isAlive = true;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
     }

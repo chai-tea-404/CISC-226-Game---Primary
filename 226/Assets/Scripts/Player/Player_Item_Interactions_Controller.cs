@@ -10,9 +10,14 @@ public class Player_Item_Interactions_Controller : MonoBehaviour
     public static int numCoins;
 
     void Start(){
-        score = 0;
         // Count number of coins on start
         numCoins = GameObject.Find("Coins").transform.childCount;
+    }
+
+    // Reset score to last checkpoint
+    void Awake(){
+        Game_Master gm = GameObject.Find("GameMaster").GetComponent<Game_Master>();
+        score = gm.respawnScore;
     }
 
     // Whenever an object with a trigger hitbox is touched, check what it is and resolve accordingly by checking tags

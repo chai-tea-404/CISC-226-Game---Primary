@@ -8,6 +8,8 @@ TagManager:
   - Hazards
   - Item_Coin
   - Item_Medkit
+  - Checkpoint_One
+  - GameMaster
   layers:
   - Default
   - TransparentFX

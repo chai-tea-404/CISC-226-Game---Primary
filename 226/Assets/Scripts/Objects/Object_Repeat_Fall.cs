@@ -17,7 +17,7 @@ public class Object_Repeat_Fall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(0,fallSpeed*-1,0);
+        transform.Translate(0,fallSpeed * -1 * Time.deltaTime,0);
         if (startingPosition.y - transform.position.y >= fallDistance){
             transform.position = startingPosition;
         }
